@@ -1,6 +1,6 @@
 <template>
   <div class="card">
-    <div class="card-header">Exam06ListRendering</div>
+    <div class="card-header">Exam06ListRendering 복습</div>
     <div class="card-body">
       <div>
         <h6>범위 반복</h6>
