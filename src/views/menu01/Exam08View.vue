@@ -4,8 +4,11 @@
         Exam08View
     </div>
     <div class="card-body">
-      <div>kind: {{route.params.kind}}</div>
-      <div>color: {{route.params.color}}</div>
+      <div>route.params.kind : {{route.params.kind}}</div>
+      <div>route.params.color : {{route.params.color}}</div>
+      <hr/>
+      <div>route.query.kind : {{route.query.kind}}</div>
+      <div>route.query.color : {{route.query.color}}</div>
     </div>
   </div>
 </template>
@@ -23,7 +26,9 @@
     console.log("-----------------------------");
     console.log("kind : " + route.params.kind);
     console.log("color : " + route.params.color);
-
+    console.log("-----------------------------");
+    console.log("kind : " + route.query.kind);
+    console.log("color : " + route.query.color);
     
 </script>
 
