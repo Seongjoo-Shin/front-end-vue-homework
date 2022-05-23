@@ -32,11 +32,7 @@
     let price = 300000;
     let image = "minibag-black.png";
     let detail = {
-        info : `
-            <div>
-                시그너츠 Cecyle Lock 마그네틱 클로저가 특징입니다.
-            </div>
-        `,
+        info : `<div>시그너츠 Cecyle Lock 마그네틱 클로저가 특징입니다.</div>`,
         sale: false,
     };
 

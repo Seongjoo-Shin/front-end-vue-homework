@@ -34,6 +34,17 @@
     <li class="nav-item">
       <h6 class="text-white">Menu04</h6>
       <router-link to="/menu04/exam01props" class="nav-link text-warning">Exam01Props : 부모에서 자식으로(Prop 방식)</router-link>
+      <router-link to="/menu04/exam02eventemit" class="nav-link text-warning">Exam02EventEmit : 자식에서 부모로(Event 방식)</router-link>
+      <router-link to="/menu04/exam03provideinject" class="nav-link text-warning">Exam03ProvideInject : Provide / Inject</router-link>
+    </li>
+    <li class="nav-item">
+      <h6 class="text-white">Menu05</h6>
+      <router-link to="/menu05/exam01lifecyclehooks" class="nav-link text-warning">Exam01LifeCycleHooks : LifeCycle Hooks</router-link>
+      <router-link to="/menu05/exam02templaterefs" class="nav-link text-warning">Exam02TemplateRefs : 엘리먼트 태그 참조</router-link>
+    </li>
+    <li class="nav-item">
+      <h6 class="text-white">Menu06</h6>
+      <router-link to="/menu06/exam01rootstate" class="nav-link text-warning">Exam01RootState : 루트 상태 읽기 및 변경</router-link>
     </li>
   </ul>
 </template>

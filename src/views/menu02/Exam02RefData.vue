@@ -35,11 +35,7 @@ let company = ref("클레인");
 let price = ref(300000);
 let image = ref("minibag-black.png");
 let detail = ref({
-    info : `
-        <div>
-            시그너츠 Cecyle Lock 마그네틱 클로저가 특징입니다.
-        </div>
-    `,
+    info : `<div>시그너츠 Cecyle Lock 마그네틱 클로저가 특징입니다.E</div> `,
     sale: false,
 });
 
@@ -50,12 +46,15 @@ function getPrice(){
 
 function changeData(){
     no.value++;
-    name.value = "빨간 미니백";
+    name.value += "백";
     price.value += 1000;
     image.value = "minibag-red.png";
 
+    // 객체의 속성 값을 바꿈
     // detail.value.info = "<div>시그너츠 마그네틱 클러저와 빨간색의 조화가 좋습니다.</div>";
     // detail.value.sale = !detail.value.sale;
+
+    // 객체 자체를 바꿈
     detail.value = {
         info: "<div>시그너츠 마그네틱 클러저와 빨간색의 조화가 좋습니다.</div>",
         sale: !detail.value.sale,

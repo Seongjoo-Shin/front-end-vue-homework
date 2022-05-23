@@ -136,7 +136,7 @@ function handleReset() {
   product.name = "";
   product.company = "";
   product.price = 0;
-  product.colors = [];
+  product.colors = ["yellow"];
   product.info = "";
   product.madein = "한국";
   product.sale1 = false;
