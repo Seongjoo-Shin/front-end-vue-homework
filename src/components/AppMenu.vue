@@ -45,6 +45,7 @@
     <li class="nav-item">
       <h6 class="text-white">Menu06</h6>
       <router-link to="/menu06/exam01rootstate" class="nav-link text-warning">Exam01RootState : 루트 상태 읽기 및 변경</router-link>
+      <router-link to="/menu06/exam02counterstate" class="nav-link text-warning">Exam02CounterState : 하위 상태 읽기 및 변경</router-link>
     </li>
   </ul>
 </template>
