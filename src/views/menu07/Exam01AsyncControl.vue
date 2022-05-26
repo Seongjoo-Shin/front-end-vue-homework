@@ -22,7 +22,6 @@
 
 <script setup>
 import { ref } from "vue";
-import { workerData } from "worker_threads";
 
 const result = ref("");
 const loading = ref(false);
