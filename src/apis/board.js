@@ -68,10 +68,24 @@ async function deleteBoard(bno) {
   return result;
 }
 
+// 게시물 수정
+async function updateBoard(multipartFormData) {
+  let dbBoard = null;
+  try {
+    const response = await axios.put(`/board/`, multipartFormData);
+    dbBoard = response.data;
+  } catch(error) {
+    console.log(error);
+  }
+
+  return dbBoard;
+}
+
 export default {
   getBoardList,
   createBoard,
   readBoard,
   downloadBoardAttach,
   deleteBoard,
+  updateBoard,
 }

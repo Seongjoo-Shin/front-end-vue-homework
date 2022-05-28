@@ -57,7 +57,6 @@ async function handleAdd() {
   if(battach.value.files.length != 0) {
     multipartFormData.append("battach", battach.value.files[0]);
   }
-  console.log(multipartFormData);
   await apiBoard.createBoard(multipartFormData);
   router.push("/menu07/board/list");
 }

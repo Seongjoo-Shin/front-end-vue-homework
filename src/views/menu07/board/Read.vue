@@ -22,7 +22,7 @@
         </div>
         <div>
           <router-link :to="`/menu07/board/list?pageNo=${$route.query.pageNo}`" class="btn btn-info btn-sm mr-2">목록</router-link>
-          <!-- <router-link :to="`/menu07/board/updateform?bno=${$route.query.bno}&pageNo=${$route.query.pageNo}`" class="btn btn-info btn-sm mr-2">수정</router-link> -->
+          <router-link :to="`/menu07/board/updateform?bno=${$route.query.bno}&pageNo=${$route.query.pageNo}`" class="btn btn-info btn-sm mr-2">수정</router-link>
           <button class="btn btn-info btn-sm mr-2" @click="handleRemove">삭제</button>
         </div>
       </div>
