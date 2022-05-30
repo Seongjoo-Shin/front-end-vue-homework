@@ -19,4 +19,12 @@ export default [
     path: "/menu07/board/updateform",
     component: () => import(/* webpackChunkName: "menu07" */ "../views/menu07/board/UpdateForm.vue"),
   },
+  {
+    path: "/menu07/auth/join",
+    component: () => import(/* webpackChunkName: "menu07" */ "../views/menu07/auth/Join.vue"),
+  },
+  {
+    path: "/menu07/auth/login",
+    component: () => import(/* webpackChunkName: "menu07" */ "../views/menu07/auth/Login.vue"),
+  },
 ]

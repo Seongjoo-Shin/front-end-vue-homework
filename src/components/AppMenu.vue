@@ -51,6 +51,8 @@
       <h6 class="text-white">Menu07</h6>
       <router-link to="/menu07/exam01asynccontrol" class="nav-link text-warning">Exam01AsyncControl : 스피너 보여주기</router-link>
       <router-link to="/menu07/board/list" class="nav-link text-warning">board/List : 게시물 목록</router-link>
+      <router-link to="/menu07/auth/join" class="nav-link text-warning">auth/Join : 회원가입</router-link>
+      <router-link to="/menu07/auth/login" class="nav-link text-warning">auth/Login : 로그인</router-link>
     </li>
   </ul>
 </template>

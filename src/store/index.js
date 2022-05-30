@@ -1,15 +1,21 @@
 import { createStore } from 'vuex'
 import counter from "./counter";
+import axiosConfig from "@/apis/axiosConfig";
+import axios from "axios";
 
 export default createStore({
   state: {
-    userId: "summer",
+    userId: "",
+    authToken: "",
   },
   getters: { // 상태의 값을 리턴하는 것이 목적
     getUserId(state, getters, rootState, rootGetters){ // 기본적으로 getter가 갖는 매개변수
       // index.js는 루트 상태 모듈이므로 여기서 state = rootState, getters = rootGetters인 상태
       return state.userId;
     },
+    getAuthToken(state, getters, rootState, rootGetters) {
+      return state.authToken;
+    }
     /*
     객체 메소드 작성 ( ↑ 같은 방법 )
     getUserId : function(state, getters, rootState, rootGetters) {
@@ -22,6 +28,9 @@ export default createStore({
       // 정해져있는 매개변수, payload는 바꾸고자하는 새로운 값
       state.userId = payload;
     },
+    setAuthToken(state, payload) {
+      state.authToken = payload;
+    }
   },
   actions: { // 비동기방식으로 요청, 응답을 받은 후 상태 변이를 시키는 목적
     /*
@@ -51,6 +60,18 @@ export default createStore({
       });
 
     },
+
+    saveAuth(context, payload) {
+      context.commit("setUserId", payload.userId);
+      context.commit("setAuthToken", payload.authToken);
+      axiosConfig.addAuthHeader(payload.authToken);
+    },
+
+    deleteAuth(context, payload) {
+      context.commit("setUserId", "");
+      context.commit("setAuthToken", "");
+      axiosConfig.removeAuthHeader();
+    }
   },
   modules: {
     counter,
