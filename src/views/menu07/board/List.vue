@@ -56,11 +56,17 @@
 import apiBoard from "@/apis/board";
 import { ref, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
+import { useStore } from "vuex";
+
 
 //반응형 속성 선언
 const page = ref(null);
 const route = useRoute();
 const router = new useRouter();
+const store = useStore();
+if(store.state.userId === '') {
+  router.push("/menu07/auth/login");
+}
 
 //라우팅 시에 전달될 QueryString에서 pageNo를 읽기
 let pageNo = route.query.pageNo;
@@ -72,9 +78,10 @@ if (pageNo === "undefined") {
 //Rest API와 통신해서 페이지에 대한 정보(게시물 목록, 페이저) 를 page 라는 반응형 속성에 저장
 async function getBoardList(pageNo) {
   const result = await apiBoard.getBoardList(pageNo);
-  if (result != null) {
-    page.value = result;
-    console.log(page.value);
+  if (result.result === "success") {
+    page.value = result.data;
+  } else {
+    router.push("/menu07/auth/login");
   }
 }
 

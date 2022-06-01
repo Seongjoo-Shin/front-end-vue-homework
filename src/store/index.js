@@ -1,21 +1,22 @@
 import { createStore } from 'vuex'
 import counter from "./counter";
-import axiosConfig from "@/apis/axiosConfig";
-import axios from "axios";
+import axiosConfig from '@/apis/axiosConfig';
+import axios from 'axios';
+import { _ } from 'core-js';
 
 export default createStore({
   state: {
-    userId: "",
-    authToken: "",
+    userId: "", // mid
+    authToken: "", // AccessToken
   },
   getters: { // 상태의 값을 리턴하는 것이 목적
     getUserId(state, getters, rootState, rootGetters){ // 기본적으로 getter가 갖는 매개변수
       // index.js는 루트 상태 모듈이므로 여기서 state = rootState, getters = rootGetters인 상태
       return state.userId;
     },
-    getAuthToken(state, getters, rootState, rootGetters) {
+    getAuthToken(state, getters, rootState, rootGetters){
       return state.authToken;
-    }
+    },
     /*
     객체 메소드 작성 ( ↑ 같은 방법 )
     getUserId : function(state, getters, rootState, rootGetters) {
@@ -24,7 +25,7 @@ export default createStore({
     */
   },
   mutations: { // 동기방식으로 상태 값을 변경시키는 메소드
-    setUserId(state, payload){ // setter를 직접 사용
+    setUserId(state, payload) { // setter를 직접 사용
       // 정해져있는 매개변수, payload는 바꾸고자하는 새로운 값
       state.userId = payload;
     },
@@ -34,7 +35,6 @@ export default createStore({
   },
   actions: { // 비동기방식으로 요청, 응답을 받은 후 상태 변이를 시키는 목적
     /*
-    
     console.log("payload : ", payload);
     */
     // payload : {userId: "xxx")}}
@@ -61,19 +61,36 @@ export default createStore({
 
     },
 
+    // 로그인 성공했을 때 실행
+    // payload: {userId: xxxx, authToken: xxxx}
     saveAuth(context, payload) {
       context.commit("setUserId", payload.userId);
       context.commit("setAuthToken", payload.authToken);
+      sessionStorage.setItem("userId", payload.userId); // sessionStorage는 내장 변수
+      sessionStorage.setItem("authToken", payload.authToken);
       axiosConfig.addAuthHeader(payload.authToken);
     },
 
+    // 로그아웃 실행할 때
     deleteAuth(context, payload) {
       context.commit("setUserId", "");
       context.commit("setAuthToken", "");
+      sessionStorage.removeItem("userId");
+      sessionStorage.removeItem("authToken");
       axiosConfig.removeAuthHeader();
+    },
+
+    loadAuth(context, payload) {
+      context.commit("setUserId", sessionStorage.getItem("userId" || ""));
+      context.commit("setAuthToken", sessionStorage.getItem("authToken" || ""));
+      if(context.state.authToken !== "") {
+        axiosConfig.addAuthHeader(context.state.authToken);
+      }
     }
+    
   },
   modules: {
     counter,
   }
-})
+});
+

@@ -21,34 +21,49 @@
         <button class="btn btn-info btn-sm mr-2" v-on:click="handleLogout">로그아웃</button>
       </div>
     </div>
+    <AlertDialog v-if="alertDialog" :message="alertDialogMessage" :loading="loading" @close="alertDialog = false"/>
   </div>
 </template>
 
 <script setup>
-import { reactive } from "vue";
+import { reactive, ref } from "vue";
 import { useStore } from "vuex";
+import { useRouter } from "vue-router";
 import apiAuth from "@/apis/auth";
+import AlertDialog from "@/components/menu07/AlertDialog.vue";
 
 const store = useStore();
+const router = useRouter();
 
 const user = reactive({
   id: "user",
   password: "12345",
 });
 
+const alertDialog = ref(false);
+const alertDialogMessage = ref("");
+const loading = ref(false);
+
 async function handleLogin() {
+  alertDialog.value = true;
+  loading.value = true;
+
+
   const result = await apiAuth.login(user);
   if(result === "success") {
-    console.log(result);
+    alertDialog.value = false;
+    // router.push("/"); // 로그인 성공후 페이지 이동
   } else if(result === "fail-401") {
-    console.log(result);
+    alertDialogMessage.value = "로그인 실패 : 아이디 또는 비밀번호가 틀림";
   } else {
-    console.log(result);
+    alertDialogMessage.value = "로그인 실패 : 네트워크 에러";
   }
+  
+  loading.value = false;
 }
 
 async function handleLogout() {
-
+  await apiAuth.logout();
 }
 
 </script>

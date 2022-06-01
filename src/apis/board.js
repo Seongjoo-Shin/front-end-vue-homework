@@ -1,4 +1,5 @@
 import axios from "axios";
+import apiAuth from "@/apis/auth";
 
 // 게시물 목록 요청
 async function getBoardList(pageNo=1) {
@@ -7,16 +8,21 @@ async function getBoardList(pageNo=1) {
   let response = null; 
   try {
     response = await axios.get("/board/list", {params:{pageNo}});
-    // console.log(response);
+    return {result:"success", data:response.data};
   } catch(error) {
-    console.log(error);
+    if(error.response) { 
+      // 서버의 응답은 있음
+      if(error.response.status === 403) { // 자원에 접근할 수 없는 오류
+        if(await apiAuth.refreshToken()) {
+          response = await axios.get("/board/list", {params:{pageNo}});
+          return {result: "success", data: response.data};
+        }
+      }
+    } else {
+      // 네트워크 오류
+      return {result:"fail-netwokr"};
+    }
   } 
-
-  if(response != null) {
-    return response.data;
-  } else {
-    return null;
-  }
 }
 
 // 게시물 쓰기 (멀티 파트)
@@ -26,7 +32,14 @@ async function createBoard(multipartFormData) {
     const response = await axios.post("/board/", multipartFormData);
     dbBoard = response.data;
   } catch(error) {
-    console.log(error);
+    if(error.response) { 
+      if(error.response.status === 403) { 
+        if(await apiAuth.refreshToken()) {
+          const response = await axios.post("/board/", multipartFormData);
+          dbBoard = response.data;
+        }
+      }
+    }
   }
 
   return dbBoard;
@@ -39,7 +52,14 @@ async function readBoard(bno, hit) {
     const response = await axios.get(`/board/${bno}?hit=${hit}`);
     board = response.data;
   } catch(error) {
-    console.log(error);
+    if(error.response) { 
+      if(error.response.status === 403) {
+        if(await apiAuth.refreshToken()) {
+          const response = await axios.get(`/board/${bno}?hit=${hit}`);
+          board = response.data;
+        }
+      }
+    }
   }
   return board;
 }
@@ -51,7 +71,14 @@ async function downloadBoardAttach(bno) {
     const response = await axios.get(`/board/battach/${bno}`, {responseType: "blob"});
     blob = response.data;
   } catch(error) {
-    console.log(error);
+    if(error.response) { 
+      if(error.response.status === 403) {
+        if(await apiAuth.refreshToken()) {
+          const response = await axios.get(`/board/battach/${bno}`, {responseType: "blob"});
+          blob = response.data;
+        }
+      }
+    }
   }  
   return blob;
 }
@@ -63,7 +90,14 @@ async function deleteBoard(bno) {
     const response = await axios.delete(`/board/${bno}`);
     result = response.data.result;
   } catch(error) {
-    console.log(error);
+    if(error.response) { 
+      if(error.response.status === 403) { 
+        if(await apiAuth.refreshToken()) {
+          const response = await axios.delete(`/board/${bno}`);
+          result = response.data.result;
+        }
+      }
+    }
   }
   return result;
 }
@@ -75,7 +109,14 @@ async function updateBoard(multipartFormData) {
     const response = await axios.put(`/board/`, multipartFormData);
     dbBoard = response.data;
   } catch(error) {
-    console.log(error);
+    if(error.response) { 
+      if(error.response.status === 403) {
+        if(await apiAuth.refreshToken()) {
+          const response = await axios.put(`/board/`, multipartFormData);
+          dbBoard = response.data;
+        }
+      }
+    }
   }
 
   return dbBoard;
